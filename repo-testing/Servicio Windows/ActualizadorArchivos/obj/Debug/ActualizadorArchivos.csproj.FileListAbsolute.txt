@@ -1,0 +1,9 @@
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\bin\Debug\ActualizadorArchivos.exe.config
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\bin\Debug\ActualizadorArchivos.exe
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\bin\Debug\ActualizadorArchivos.pdb
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\obj\Debug\ActualizadorArchivos.csproj.AssemblyReference.cache
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\obj\Debug\ActualizadorArchivos.Updater.resources
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\obj\Debug\ActualizadorArchivos.csproj.GenerateResource.cache
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\obj\Debug\ActualizadorArchivos.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\obj\Debug\ActualizadorArchivos.exe
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\ActualizadorArchivos\obj\Debug\ActualizadorArchivos.pdb

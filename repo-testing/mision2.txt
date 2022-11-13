@@ -1,0 +1,31 @@
+Base cualquier nombre 
+
+La ejecucuion del servicio sera parametrizable 
+
+tabla 
+control ejecucion
+TipoEjecucion  - Diaria 
+		-Semanal
+		-Mensual  30 dias 
+
+HoraEjecucucion  - Hora en que se va ejecutar 
+
+-FechaUltimaEjecucion  11/05/2022
+
+
+
+servicio windows, que va a ingresar data a una tabla en una BD
+si el regitro ya existe actualizarlo
+esto se leera de un csv, archivo separado por comas. 
+cada 10 min va leer una ruta parametrizable en BD
+
+cuando el proceso se ejecute guarde un txt log que guarde la cant de reg insertados
+log cantidad de reg actualizados e ingresados
+
+ clientes .csv
+id, nombre, apellido, edad 
+
+cliente 
+vamos a un api que lee esa tabla  filtros, nombre, apellido, es mayor de edad
+vamos a hacer un front que muestre todo lo que tenga la tabla  caja nombre, apellido, check mayor edad, si/no , 
+editar, actualizar datos 

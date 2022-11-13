@@ -1,0 +1,13 @@
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\bin\Debug\netcoreapp3.1\ClienteAPI.deps.json
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\bin\Debug\netcoreapp3.1\ClienteAPI.dll
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\bin\Debug\netcoreapp3.1\ClienteAPI.pdb
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\bin\Debug\netcoreapp3.1\Data.dll
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.csproj.AssemblyReference.cache
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.AssemblyInfoInputs.cache
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.AssemblyInfo.cs
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.csproj.CopyComplete
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.dll
+C:\Users\DELL\Documents\repo-testing\Servicio Windows\FrontArchivos\ClienteAPI\obj\Debug\netcoreapp3.1\ClienteAPI.pdb

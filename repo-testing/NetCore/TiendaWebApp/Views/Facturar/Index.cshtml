@@ -1,0 +1,165 @@
+﻿@using Data;
+@{
+    ViewBag.Title = "Facturar";
+    List<DetalleFactura> detalle = (List<DetalleFactura>)ViewBag.DetalleFactura;
+    if (ViewBag.subtotal == null || ViewBag.IVA == null || ViewBag.TotalaPagar == null)
+    {
+        ViewBag.subtotal = 0;
+        ViewBag.IVA = 0;
+        ViewBag.TotalaPagar = 0;
+    }
+    double total = ViewBag.subtotal;
+    double IVA = ViewBag.IVA;
+    double TotalaPagar = ViewBag.TotalaPagar;
+
+}
+<style>
+    .containerESP {
+        display: flex;
+        flex-direction: column;
+        padding-right: 15px;
+        padding-left: 15px;
+        vertical-align: central;
+    }
+</style>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script>
+        var total = "@ViewBag.subtotal";
+</script>
+<form class="row" name="formFactura" id="formFactura">
+    <div class="container-fluid">
+
+
+        <br />
+        <br />
+
+        <div class="row">
+            <div class="col-lg-4  col-xs-12 form-group">
+                <label for="">Numero de factura</label>
+                <input type="number" min="1" class="form-control" id="numero" onchange="if($('#numero').val()<1)$('#numero').val(1)" name="numero" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="col-lg-4  col-xs-12 form-group">
+                <label for="">Cliente</label>
+                <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" aria-describedby="helpId" placeholder="" readonly value="@ViewBag.Cliente">
+            </div>
+            <div class="col-lg-4  col-xs-12 form-group">
+                <button type="button" class="btn btn-primary" id="consultar" data-toggle="modal" data-target="#myModal" style="margin-top: 25px;">Consultar Factura</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-xs-12 form-group">
+                <label for="">Producto</label>
+                <input type="text" style="padding-left: 12px;" class="form-control" id="producto" name="producto" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="col-lg-4 col-xs-12 form-group" style="padding-top: 25px;padding-left: 15px;">
+                <span></span>
+                <button type="button" class="btn btn-primary" id="buscar" data-toggle="modal" data-target="#myModal" style="padding-top: 6px;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <br /><br />
+
+    </div>
+</form>
+
+<div class="container-fluid">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        @if (ViewBag.TieneDetalle == "N")
+        {
+            <tr>
+                <td colspan="5" style="text-align:center">No ha seleccionado ningun producto</td>
+            </tr>
+        }
+        else
+        {
+            int i = 0;
+            foreach (var item in detalle)
+            {
+                <tr>
+                    <td>@item.idCodigoProducto</td>
+                    <td>@item.nombreProducto</td>
+                    <td>@item.descripcionProducto</td>
+                    <td>@item.cantidadProducto</td>
+                    <td>@item.precioProducto</td>
+                    <td>@item.subtotal</td>
+                    <td><i class="fa-solid fa-trash-can eliminar" id=@i style="cursor:pointer;color:red"></i></td>
+                </tr>
+                i++;
+            }
+        }
+    </table>
+</div>
+
+<div class="containerESP">
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-10 col-xs-6" style="text-align:right">
+            <label for="">Subtotal</label>
+        </div>
+        <div class="col-lg-2 col-xs-6">
+            <input type="number" class="form-control" placeholder="" readonly id="subtotal" value="@total">
+        </div>
+    </div>
+    <!--div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-10 col-xs-6" style="text-align:right">
+            <label for="">Descuento</label>
+        </div>
+        <div class="col-lg-2 col-xs-6">
+            <input type="number" class="form-control" placeholder="">
+        </div>
+    </div-->
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-10 col-xs-6" style="text-align:right">
+            <label for="">IVA</label>
+        </div>
+        <div class="col-lg-2 col-xs-6">
+            <input type="number" class="form-control" placeholder="" value="@IVA">
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-10 col-xs-6" style="text-align:right">
+            <label for="">Total</label>
+        </div>
+        <div class="col-lg-2 col-xs-6">
+            <input type="number" class="form-control" placeholder="" readonly id="total" value="@TotalaPagar">
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-10 col-xs-6" style="text-align:right">
+            <label for=""></label>
+        </div>
+        <div class="col-lg-2 col-xs-6">
+            <button type="button" class="btn btn-primary btn-block" id="facturar">Facturar</button>
+        </div>
+    </div>
+
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Facturar.js">
+</script>
+<script type="text/javascript">
+    var urlBuscarProducto = "@Url.Action("ModalProductos", "Facturar")";
+    var urlConsultarFactura = "@Url.Action("ConsultarFac", "Facturar")";
+    var urlAgregarDetalleTemp = "@Url.Action("TemporalDetalleProducto", "Facturar")";
+    var urlIndexFacturar = "@Url.Action("Index", "Facturar")";
+    var urlIngresarCab = "@Url.Action("IngresarCab", "Facturar")";
+    var urlIngresarDet = "@Url.Action("IngresarDet", "Facturar")";
+    var urlEliminarDet = "@Url.Action("EliminarDet", "Facturar")";
+</script>

@@ -1,0 +1,29 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:18672",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ConexionBD": "Data Source=DESKTOP-KOV2VNC\\SQLEXPRESS;Initial Catalog=Facturacion;Integrated Security=True",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Clavee": "Data Source=DESKTOP-KOV2VNC\\SQLEXPRESS;User ID=usuarioPrueba;Password=123456;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+      }
+    },
+    "ApiTienda": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:5000"
+    }
+  }
+}

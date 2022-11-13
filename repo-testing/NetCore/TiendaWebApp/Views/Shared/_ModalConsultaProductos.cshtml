@@ -1,0 +1,163 @@
+﻿@using Data;
+@{
+    List<Producto> coincidendias = (List<Producto>)ViewBag.ListaCoincidencias;
+    List<DetalleFactura> detalle = (List<DetalleFactura>)ViewBag.DetalleFactura;
+}
+
+<script>
+    var arreglo = @Html.Raw(Json.Serialize(coincidendias));
+    var detalle = @Html.Raw(Json.Serialize(detalle));
+    //console.log("Valor arreglo-->: " + Json.stringify(arreglo);
+</script>
+<div class="container-fluid">
+    <div class="row">
+
+        @if (coincidendias.Count != 0)
+        {
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Descripcion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in coincidendias)
+                {
+
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td><input type="radio" class="controlElemento" name="producto" value="@item.Codigo" /></td>
+                    </tr>
+
+                }
+            </table>
+            <br />
+
+
+        }
+        else
+        {
+            <label>No se encontraron coincidencias</label>
+            <br />
+        }
+    </div>
+
+</div>
+<div class="containerESP" id="propiedadesProducto" style="display:none">
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-lg-9 col-xs-6" style="text-align:right">
+            <label for="" class="form-label text-white ">Cantidad</label>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <input type="number" min="1" class="form-control" id="cantidadProducto" onchange="if($('#cantidadProducto').val()<1)$('#cantidadProducto').val(1)" placeholder="">
+        </div>
+    </div>
+</div>
+<div class="containerESP">
+    <div class="row" style="margin-bottom:10px;">
+        @if (coincidendias.Count == 0)
+        {
+            <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+                <span></span>
+            </div>
+            <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+                <span></span>
+            </div>
+            <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+                <button type="button" class="btn btn-danger btn-block " data-dismiss="modal" aria-label="Close" id="btnCerrar" style="display:block">Cerrar</button>
+            </div>
+        }
+        else
+        {
+            <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+                <span></span>
+            </div>
+            <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+                <button type="button" class="btn btn-danger btn-block " data-dismiss="modal" aria-label="Close" id="btnCerrar" style="display:block">Cerrar</button>
+            </div>
+            <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+                <button type="button" class="btn btn-primary btn-block" id="btnAgregar">Agregar</button>
+            </div>
+        }
+
+
+
+    </div>
+
+
+</div>
+<script>
+    //var lc = JSON.parse(@coincidendias);
+    $(".controlElemento").click(function () {
+        $("#propiedadesProducto").show();
+
+    });
+    $("#btnAgregar").click(function () {
+        var cantidad = $("#cantidadProducto").val();
+        var codigo = $('input[name=producto]:checked').val();
+        var producto = null;
+        var duplicado = false;
+        if (codigo== undefined) {
+            Swal.fire({
+                title: 'Error!',
+                text: "Debe seleccionar un producto primero",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            if (cantidad == "") {
+                Swal.fire({
+                    title: 'Error!',
+                    text: "Llene el campo cantidad",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                arreglo.forEach(element => {
+                    if (element.codigo == codigo) {
+                        producto = element;//producto seleccionado de la lista
+
+                        detalle.forEach(element => {//buscando el elemento en el detalle
+                            if (element.idCodigoProducto == codigo) {
+                                duplicado = true;
+                            }
+                        });
+
+                        if (duplicado) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: "Ese producto ya fue ingresado previamente",
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            if (cantidad > producto.stock) {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: "No se cuenta con el stock suficiente: Stock actual " + producto.stock,
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            } else {
+                                $.ajax({
+                                    url: urlAgregarDetalleTemp,
+                                    method: "POST",
+                                    data: { _producto: producto, _cantidad: cantidad },
+
+                                    success: function (data) {
+                                        if (data.codigo == "000") {
+                                            window.location.href = urlIndexFacturar;
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    })
+</script>

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32407.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiendaWebApp", "TiendaWebApp.csproj", "{0756507D-F7FF-4C62-95A0-5E7915243124}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteAPI", "..\ClienteAPI\ClienteAPI.csproj", "{93F07CDE-0851-461D-818E-275B334D4654}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "..\Data\Data.csproj", "{8DF5C0D2-6CDF-4E70-BEB2-45CE033A425E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0756507D-F7FF-4C62-95A0-5E7915243124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0756507D-F7FF-4C62-95A0-5E7915243124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0756507D-F7FF-4C62-95A0-5E7915243124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0756507D-F7FF-4C62-95A0-5E7915243124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F07CDE-0851-461D-818E-275B334D4654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F07CDE-0851-461D-818E-275B334D4654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F07CDE-0851-461D-818E-275B334D4654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F07CDE-0851-461D-818E-275B334D4654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF5C0D2-6CDF-4E70-BEB2-45CE033A425E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF5C0D2-6CDF-4E70-BEB2-45CE033A425E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF5C0D2-6CDF-4E70-BEB2-45CE033A425E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF5C0D2-6CDF-4E70-BEB2-45CE033A425E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {671B798C-AA9C-409A-AE5E-C482A358FDEA}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,26 @@
+-Crear asmx llamado ServicioAutenticacion.  (La logica de BD debera realizarse mediante Store Procedures)
+Su funcion  sera validar el codigo cliente y el password de la tabla Usuario:
+Si se encontro la data devolver
+  Codigo: "000"
+  Mensaje: "Usuario Autenticado"
+Si no coincide el password o usuario:
+  Codigo: "999"
+  Mensaje: "Usuario o contraseña incorrectas"
+  
+-Crear un API REST
+Se debera crear un api rest con los siguientes endpoints:
+/autenticar (Debera llamarse al ASMX creado en el paso anterior)
+/cliente/buscar (debera devolver data) 
+/producto/listar
+/producto/ingresar 
+/producto/actualizar/
+/factura/ingresar-cab/
+/factura/ingresar-det/
+/factura/consultar
+
+ (La logica de BD debera realizarse mediante Store Procedures)
+
+-Crear proyecto ASP net Core MVC para manejar front
+Crear pantalla de login 
+
+

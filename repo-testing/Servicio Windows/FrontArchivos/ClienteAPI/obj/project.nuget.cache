@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "MCVlWn2GynLm5QZCW/Y9aBqWbFtFjatJ47HQJcxZ6xWxulQjEu3f8jU+ckIurMFU9f9kX5pnfWZ8YH1C9EeCPg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DELL\\Documents\\repo-testing\\Servicio Windows\\FrontArchivos\\ClienteAPI\\ClienteAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

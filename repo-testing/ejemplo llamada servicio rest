@@ -1,0 +1,56 @@
+  public RespuestaApi consultaApi(RequestCliente objCliente)
+        {
+            RespuestaApi rpta = new RespuestaApi();
+            string jsonData = JsonConvert.SerializeObject(objCliente);
+            JsonResult jsonDesenRqCliente = clsUtilitarios.DesencriptarClase(jsonData, "RequestCliente");
+            Api datoExterno = new Api();
+            string urlExterna = string.Empty;
+            HttpClient clienteHttpExterno = new HttpClient();
+
+            try
+            {
+
+                objCliente = JsonConvert.DeserializeObject<RequestCliente>(jsonDesenRqCliente.Data.ToString());
+
+
+                datoExterno = clsUtilitarios.ObtieneDatoApi(objCliente.CodigoServicio);
+                urlExterna = urlApiExterna + datoExterno.Origen + datoExterno.Endpoint;
+                clsUtilitarios.GrabaLogs(datoExterno.Endpoint, "----------------------------------------------------------", "DeclararacionApiController");
+                clsUtilitarios.GrabaLogs(datoExterno.Endpoint, "Consulta Api Externa", "DeclararacionApiController");
+                clsUtilitarios.GrabaLogs(datoExterno.Endpoint, "----------------------------------------------------------", "DeclararacionApiController");
+
+                clsUtilitarios.GrabaLogs(datoExterno.Endpoint, "REQUEST: " + JsonConvert.SerializeObject(objCliente), "DeclararacionApiController");
+
+                if (datoExterno.Tipo == "POST")
+                {
+                    HttpResponseMessage response = clienteHttpExterno.PostAsJsonAsync(urlExterna, objCliente).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        rpta = JsonConvert.DeserializeObject<RespuestaApi>(response.Content.ReadAsStringAsync().Result);
+                        clsUtilitarios.GrabaLogs(datoExterno.Endpoint, "RESPONSE: " + JsonConvert.SerializeObject(rpta), "DeclararacionApiController");
+
+                    }
+                    else
+                    {
+                        rpta.CodRespuesta = "001";
+                        rpta.MsgRespuesta = "Error de conexion" + response.StatusCode;
+                        clsUtilitarios.GrabaLogs(datoExterno.Endpoint, "RESPONSE: " + JsonConvert.SerializeObject(rpta), "DeclararacionApiController");
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                rpta.CodRespuesta = "001";
+                rpta.MsgRespuesta = ex.Message.ToString();
+                clsUtilitarios.GrabaLogs("consultaApi", ex.Message, "DeclararacionApiController");
+
+            }
+            return rpta;
+
+
+
+        }

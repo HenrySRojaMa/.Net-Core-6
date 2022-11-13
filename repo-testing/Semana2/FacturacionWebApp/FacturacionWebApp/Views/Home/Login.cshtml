@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/login/css")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div class="container ">
+        <div class="row">
+            <img src="~/Content/img/Logo2-Viamatica-2020.png" class="img-responsive col-md-offset-4" alt="Image">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default ">
+                    <div class="panel-footer">
+                        <form name="formLogin" id="formLogin">
+                            <div class="form-group">
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" value="0931357305">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Contraseña:</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd" value="123456879">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="btnLogear">Loggin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
+
+<script>
+    var urlLogin = "@Url.Action("ProcesoLogin", "Home")";
+    var urlservicios = "@Url.Action("Index", "Servicios")";
+    $("#btnLogear").click(function () {     
+        console.log("Boton funciona");
+        $.ajax({
+            url: urlLogin,
+            method: "POST",
+            data: $("#formLogin").serialize(),
+            success: function (data) {
+                if (data.Codigo == "000") {
+                    window.location.href = urlservicios;
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.Mensaje,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+        }); 
+    })
+</script>

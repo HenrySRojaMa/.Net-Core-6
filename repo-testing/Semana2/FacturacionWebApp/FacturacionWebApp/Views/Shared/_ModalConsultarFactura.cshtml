@@ -1,0 +1,70 @@
+﻿@using FacturacionWebApp.Models;
+@{
+    Factura2 factura = (Factura2)ViewBag.Factura;
+}
+<div class="row">
+    <label for="" class="form-label text-white ">Numero de factura:</label>
+    <label for="" class="form-label text-white ">@factura.Codigo</label>
+</div>
+<div class="row">
+    <label for="" class="form-label text-white ">Cedula:</label>
+    <label for="" class="form-label text-white ">@factura.CodigoCliente</label>
+</div>
+<div class="row">
+    <label for="" class="form-label text-white ">Fecha:</label>
+    <label for="" class="form-label text-white ">@factura.Fecha</label>
+</div>
+<div class="row">
+    <label for="" class="form-label text-white ">Cliente:</label>
+    <label for="" class="form-label text-white ">@factura.Nombre @factura.Apellido</label>
+</div>
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in factura.Detalle)
+                    {
+                        <tr>
+                            <td>@item.CodigoProducto</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.Subtotal</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <label for="" class="form-label text-white ">Total:</label>
+    <label for="" class="form-label text-white ">@factura.Total</label>
+</div>
+<div class="row">
+    <label for="" class="form-label text-white ">IVA:</label>
+    <label for="" class="form-label text-white ">@factura.IVA</label>
+</div>
+<div class="row">
+    <label for="" class="form-label text-white ">Descuento:</label>
+    <label for="" class="form-label text-white ">@factura.Descuento</label>
+</div>
+<div class="row">
+    <label for="" class="form-label text-white ">Total a pagar:</label>
+    <label for="" class="form-label text-white ">@factura.TotalaPagar</label>
+</div>
+<div class="row">
+    <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+        <button type="button" class="btn btn-danger btn-block " data-dismiss="modal" aria-label="Close" id="btnCerrar" style="display:block">Cerrar</button>
+    </div>
+</div>

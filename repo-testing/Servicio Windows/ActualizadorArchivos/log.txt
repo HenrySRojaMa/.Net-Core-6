@@ -1,0 +1,15 @@
+[13/5/2022 , 15:42] = registros ingresados: 1, registros actualizados: 0
+[13/5/2022 , 15:43] = registros ingresados: 0, registros actualizados: 1
+[13/5/2022 , 15:50] = registros ingresados: 0, registros actualizados: 1
+[13/5/2022 , 22:59:44] = registros ingresados: 0, registros actualizados: 1
+[13/5/2022 , 23:10:08] = registros ingresados: 0, registros actualizados: 1
+[13/5/2022 , 23:14:54] = registros ingresados: 0, registros actualizados: 1
+[14/5/2022 , 11:12:00] = registros ingresados: 0, registros actualizados: 1
+[14/5/2022 , 11:21:00] = registros ingresados: 0, registros actualizados: 1
+[14/5/2022 , 14:42:00] = registros ingresados: 0, registros actualizados: 1
+[16/5/2022 , 15:33:16] = registros ingresados: 0, registros actualizados: 1
+[17/5/2022 , 9:02:00] = registros ingresados: 15, registros actualizados: 0
+[17/5/2022 , 9:04:00] = registros ingresados: 0, registros actualizados: 15
+[26/5/2022 , 11:01:52] = registros ingresados: 1000, registros actualizados: 0
+[26/5/2022 , 11:23:11] = registros ingresados: 0, registros actualizados: 1000
+[26/5/2022 , 14:15:35] = registros ingresados: 0, registros actualizados: 1000, registros con novedades: 0

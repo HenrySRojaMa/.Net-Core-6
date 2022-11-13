@@ -1,0 +1,202 @@
+﻿@using Data;
+@{
+    ViewData["Title"] = "Home Page";
+    List<Cliente> lista = (List<Cliente>)ViewBag.Lista;
+}
+<script>
+    var arreglo = @Html.Raw(Json.Serialize(lista));
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<div class="table-responsive">
+    <form name="formCliente" id="formCliente">
+        <div class="row justify-content-center">
+
+            <div class="col-md-2">
+                <label for="">Cedula</label>
+                <input type="text" class="form-control" id="Cedula" name="Cedula">
+            </div>
+
+            <div class="col-md-2">
+                <label for="">Nombre</label>
+                <input type="text" class="form-control" id="Name" name="Name">
+            </div>
+
+            <div class="col-md-2">
+                <label for="">Apellido</label>
+                <input type="text" class="form-control" id="Last" name="Last">
+            </div>
+
+            <div class="col-md-2">
+                <label for="">Edad</label>
+                <input type="number" min="0" class="form-control" id="Edad" onchange="if($('#Edad').val()<0)$('#Edad').val(0)" name="Edad">
+
+            </div>
+
+            <div class="col-md-2" id="Encontrado">
+                <button class="btn btn-primary form-control" id="filtro">Filtrar</button>
+            </div>
+
+            <div class="col-md-2" id="editar">
+                <button class="btn btn-primary form-control" id="btn_Actualizar">
+                    <i class="icon fa-solid fa-circle-check" style="color: white;"></i> Actualizar
+                </button>
+                <button class="btn btn-danger form-control" id="btn_Cancelar">
+                    <i class="icon fa-solid fa-ban"></i> Cancelar
+                </button>
+            </div>
+
+        </div>
+    </form>
+    <table class="table table-striped table-hover" id="carly">
+    <!--table id="carly"-->
+        <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th></th>
+            </tr>
+        </thead>
+        
+        <tbody id="tabla1">
+            @{
+                if (lista != null)
+                {
+                    int i = 0;
+                    foreach (var item in lista)
+                    {
+                        <tr>
+                            <td>@item.Cedula</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Apellido</td>
+                            <td>@item.Edad</td>
+                            <td class="editar" style="cursor:pointer" id=@i><i class="fa-solid fa-pen-to-square"></i></td>
+                        </tr>
+                        i++;
+                    }
+                }
+            }
+        </tbody>
+        <tbody id="tabla2"></tbody>
+    </table>
+</div>
+<link href="~/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/js/jquery.dataTables.min.js" defer></script>
+<script type="text/javascript">
+    var urlActualizarCliente = "@Url.Action("ActualizarCliente", "Home")";
+    var urlFiltrarCliente = "@Url.Action("FiltrarClientes", "Home")";
+</script>
+<script>
+    var coincidencias;
+    $(function () {
+        var idProducto = 0;
+        $("#editar").hide();
+        $("#tabla2").hide();
+        /*$("#carly").DataTable({
+            "ajax": {
+                "url": urlFiltrarCliente,
+                "method": "POST",
+                "data": $("#formCliente").serialize(),
+                "dataType": "json"
+            },
+            "columns": [
+                { "data": "Cedula" },
+                { "data": "Nombre" },
+                { "data": "Apellido" },
+                { "data": "Edad" }
+            ]
+        });*/
+        //$("#carly").DataTable({});
+
+
+        $(".btn").click(function (e) {
+            e.preventDefault();
+        });
+
+        $(document).on('click', '.editar', function () {
+            //$(".editar").click(function () {
+            $("#Cedula").prop('disabled', true);
+            $("#editar").show();
+            $("#cancelar").show();
+            var ced, nom, last, edad;
+            if ($(this).attr('idB') == undefined) {
+                var Index = $(this).attr('id');
+                ced = arreglo[Index].cedula;
+                nom = arreglo[Index].nombre;
+                last = arreglo[Index].apellido;
+                edad = arreglo[Index].edad;
+            }
+            else {
+                var Index = parseInt($(this).attr('idB'));
+                ced = coincidencias[Index].cedula;
+                nom = coincidencias[Index].nombre;
+                last = coincidencias[Index].apellido;
+                edad = coincidencias[Index].edad;
+            }
+            idProducto = ced;
+            $("#Cedula").val(ced);
+            $("#Name").val(nom);
+            $("#Last").val(last);
+            $("#Edad").val(edad);
+
+        });
+
+        $("#btn_Actualizar").click(function (e) {
+            e.preventDefault();
+            $("#Cedula").val(idProducto);
+            $("#Cedula").prop('disabled', false);
+            $.ajax({
+                url: urlActualizarCliente,
+                method: "POST",
+                data: $("#formCliente").serialize(),
+                success: function (data) {
+                    if (data == 1) {
+                        Swal.fire({
+                            title: 'Realizado Exitosamente!',
+                            text: "Cliente actualizado correctamente",
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                        setTimeout(recargar, 2000);
+                    } else {
+                        $("#Cedula").prop('disabled', true);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: "Llene los campos",
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+        });
+        $("#btn_Cancelar").click(function (e) {
+            e.preventDefault();
+            $("#Cedula").prop('disabled', false);
+            $("#Cedula").val("");
+            $("#Name").val("");
+            $("#Last").val("");
+            $("#Edad").val("");
+            $("#editar").hide();
+            $("#cancelar").hide();
+        });
+        $("#filtro").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: urlFiltrarCliente,
+                method: "POST",
+                data: $("#formCliente").serialize(),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+    });
+    function recargar() {
+        location.reload();
+    }
+</script>

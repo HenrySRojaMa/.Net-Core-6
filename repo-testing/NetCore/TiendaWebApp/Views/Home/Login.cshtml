@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <br />
+                <div class="card bg-light mb-3 ">
+                    <br />
+                    <div class="row justify-content-center">
+                        <img src="~/lib/Logo2-Viamatica-2020.png" class="col-md-9">
+                    </div>
+                    <div class="card-body">
+                        <form name="formLogin" id="formLogin">
+                            <div class="form-group">
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" value="0931357305">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Contraseña:</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd" value="123456879">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="btnLogear">Loggin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
+
+<script>
+    var urlLogin = "@Url.Action("ProcesoLogin", "Home")";
+    var urlservicios = "@Url.Action("Index", "Servicios")";
+    $("#btnLogear").click(function () {
+        console.log("Boton funciona");
+        $.ajax({
+            url: urlLogin,
+            method: "POST",
+            data: $("#formLogin").serialize(),
+            success: function (data) {
+                console.log(data);
+                if (data.codigo == "000") {
+                    window.location.href = urlservicios;
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.mensaje,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+        });
+    });
+</script>

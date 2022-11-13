@@ -1,0 +1,139 @@
+﻿@using FacturacionWebApp.Models;
+
+@{
+    ViewBag.Title = "Producto";
+    if (ViewBag.Editar == null) { ViewBag.Editar = "N"; }
+    List<Producto> lista = (List<Producto>)ViewBag.Lista;
+}
+@{
+//Layout = null;
+}
+<script>
+    var arreglo = @Html.Raw(Json.Encode(lista));
+</script>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Productos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="card-general">
+            <div class="trj">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button action="" class="btn-cont" id="btn_Nuevo">NUEVO <i class="fa-solid fa-plus" style="color: white;"></i></button>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1">
+                        <button action="" class="btn-cont" id="btn_Buscar">
+                            <i class="icon fa-solid fa-magnifying-glass" style="color: white;"></i> Buscar
+                        </button>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1" hidden id="Encontrado">
+                        <button class="btn-cont" id="btn_Encontrado">
+                            <i class="icon fa-solid fa-ban"></i> Cancelar
+                        </button>
+                    </div>
+                </div>
+                
+                <form name="formProducto" id="formProducto">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="">Codigo</label>
+                            <input type="number" class="form-control" id="Code" name="Code">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="">Nombre</label>
+                            <input type="text" class="form-control" id="Name" name="Name">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="">Descripcion</label>
+                            <input type="text" class="form-control" id="Descripcion" name="Descripcion">
+                        </div>
+
+                        <div class="col-md-2" hidden id="editar">
+                            <button class="btn-cont" id="btn_Actualizar">
+                                <i class="icon fa-solid fa-circle-check" style="color: white;"></i> Actualizar
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="">Precio</label>
+                            <input type="number" class="form-control" id="Precio" name="Precio">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="">Stock</label>
+                            <input type="number" class="form-control" id="Stock" name="Stock">
+                        </div>
+                        <div class="col-md-2 col-md-offset-3" hidden id="cancelar">
+                            <button class="btn-cont" id="btn_Cancelar">
+                                <i class="icon fa-solid fa-ban"></i> Cancelar
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="trj2">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla1">
+                            @{
+                                if (lista != null)
+                                {
+                                    int i=0;
+                                    foreach (var item in lista)
+                                    {
+                                        <tr>
+                                            <td>@item.Codigo</td>
+                                            <td>@item.Nombre</td>
+                                            <td>@item.Descripcion</td>
+                                            <td>@item.Precio</td>
+                                            <td>@item.Stock</td>
+                                            <td><i class="fa-solid fa-pen-to-square editar" style="cursor:pointer" id=@i></i></td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                        <tbody id="tabla2" hidden></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Producto/Producto.js"></script>
+    <script type="text/javascript">
+        var urlIngresarProducto = "@Url.Action("IngresarProducto", "Producto")";
+        var urlAgregarDetalleTemp = "@Url.Action("TemporalDetalleProducto", "Producto")";
+        var urlActualizarProducto = "@Url.Action("ActualizarProducto", "Producto")";
+    </script>
+</body>
+</html>

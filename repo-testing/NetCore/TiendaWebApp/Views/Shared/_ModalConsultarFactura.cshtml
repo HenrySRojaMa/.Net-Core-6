@@ -1,0 +1,94 @@
+﻿@using Data;
+@{
+    Factura2 factura = (Factura2)ViewBag.Factura;
+}
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">NUMERO DE FACTURA:</b>
+            <label for=""> @factura.Codigo</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">CEDULA:</b>
+            <label for="">@factura.CodigoCliente</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">FECHA:</b>
+            <label for="">@factura.Fecha</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">CLIENTE:</b>
+            <label for="">@factura.Nombre @factura.Apellido</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in factura.Detalle)
+                    {
+                        <tr>
+                            <td>@item.CodigoProducto</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.Subtotal</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">TOTAL:</b>
+            <label for="">@factura.Total</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">IVA:</b>
+            <label for="">@factura.IVA</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">DESCUENTO:</b>
+            <label for="">@factura.Descuento</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <b for="">TOTAL A PAGAR:</b>
+            <label for="">@factura.TotalaPagar</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class=" col-lg-4 col-xs-12" style="padding-right:0px;padding-top: 5px;">
+        <button type="button" class="btn btn-danger btn-block " data-dismiss="modal" aria-label="Close" id="btnCerrar" style="display:block">Cerrar</button>
+    </div>
+</div>

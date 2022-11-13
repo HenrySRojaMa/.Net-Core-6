@@ -1,0 +1,161 @@
+﻿@using Data;
+@{
+    ViewBag.Title = "Cliente";
+    Cliente cliente = (Cliente)ViewBag.UsuarioSesion;
+    List<Lugar> provincias = (List<Lugar>)ViewBag.Provincias;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<br />
+<div class="container ">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-light mb-3 ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="row justify-content-center">
+                            <img src=data:image/jpeg;base64,@cliente.Foto class="img-responsive col-md-6" alt="Image" style="border-radius:1000px">
+                        </div>
+                    </div>
+                    <!--p style="text-align: center;"><i class="fa-solid fa-user" style="font-size: 100px;"></i></p-->
+                    <form name="formLogin" id="formLogin">
+                        <div class="form-group">
+                            <label for="Identificacion">Identificacion:</label>
+                            <input type="text" class="form-control" id="Identificacion" name="Identificacion" readonly value="@cliente.Identificacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="Nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="Nombre" name="Nombre" readonly value="@cliente.Nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="Apellido">Apellido:</label>
+                            <input type="text" class="form-control" id="Apellido" name="Apellido" readonly value="@cliente.Apellido">
+                        </div>
+                        <div class="form-group">
+                            <label for="Direccion">Direccion:</label>
+                            <input type="text" class="form-control" id="Direccion" name="Direccion" readonly value="@cliente.Direccion">
+                        </div>
+                        <div class="form-group">
+                            <label for="Telefono">Telefono:</label>
+                            <input type="text" class="form-control" id="Telefono" name="Telefono" readonly value="@cliente.Telefono">
+                        </div>
+                        <div class="form-group">
+                            <label for="Correo">Correo:</label>
+                            <input type="text" class="form-control" id="Correo" name="Correo" readonly value="@cliente.Correo">
+                        </div>
+                        <div class="form-group">
+                            <label for="Ciudad">Ciudad:</label>
+                            <input type="text" class="form-control" id="Ciudad" name="Ciudad" readonly value="@cliente.Ciudad">
+                            <div class="row" id="combos">
+                                <div class="col-md-6">
+                                    <label for="" class="form-label"></label>
+                                    <select class="form-control col-md-12" name="" id="provincia">
+                                        <option disabled selected>Provincia</option>
+                                        @{
+                                            foreach (var item in provincias)
+                                            {
+                                                <option value=@item.CodigoP>@item.NombreP</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="" class="form-label"></label>
+                                    <select class="form-control col-md-12" name="" id="ciudad">
+                                        <option disabled selected>Seleccione una provincia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="editar" class="btn btn-primary col-md-4">Editar</button>
+                                <button id="ok" class="btn btn-primary col-md-4">OK</button>
+                                <button id="cancelar" class="btn btn-danger col-md-4">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js" ></script>
+
+<script>
+    var urlBuscarCiudades = "@Url.Action("BuscarCiudades", "Cliente")";
+    var urlActualizarCliente = "@Url.Action("Actualizar", "Cliente")";
+    $(function () {
+        $("#combos").hide();
+        $("#ok").hide();
+        $("#cancelar").hide();
+
+        $("#editar").click(function (e) {
+            e.preventDefault();
+            $("#combos").show();
+            $("#ok").show();
+            $("#cancelar").show();
+            $("#Ciudad").hide();
+            $("#editar").hide();
+        });
+
+        $("#provincia").change(function (e) {
+            e.preventDefault();
+            $("#ciudad *").remove();
+            var idProvincia = $("#provincia").val();
+            var opciones = "<option disabled selected>Ciudad</option>";
+            $.ajax({
+                url: urlBuscarCiudades,
+                method: "GET",
+                data: { codigop: idProvincia },
+                success: function (data) {
+                    data.forEach(element => {
+                        opciones += "<option value="+element.codigoC+">"+element.nombreC+"</option>";
+                    });
+                    $(opciones).appendTo("#ciudad");
+                }
+            });
+        });
+
+        $("#ok").click(function (e) {
+            e.preventDefault();
+            var idCiudad = $("#ciudad").val();
+            if (idCiudad==null) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: "Seleccione una ciudad",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                $.ajax({
+                    url: urlActualizarCliente,
+                    method: "GET",
+                    data: { ciudad: idCiudad },
+                    success: function (data) {
+                        if (data.codigo == "999") {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: data.mensaje,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                        else {
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#cancelar").click(function (e) {
+            e.preventDefault();
+            $("#combos").hide();
+            $("#ok").hide();
+            $("#cancelar").hide();
+            $("#Ciudad").show();
+            $("#editar").show();
+        });
+    });
+</script>
